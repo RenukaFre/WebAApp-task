@@ -1,0 +1,18 @@
+#create Stock Market Web App using Flask
+#import Required packages
+from flask import Flask, request, render_template  #import flask package
+from Webapp import Webapp
+flaskapp = Flask(__name__)
+@flaskapp.route("/", methods=["GET","POST"])
+def index():
+    if request.method == "POST":
+        ticker = request.form["ticker"]
+        info = Webapp.company_info(ticker)
+        history = Webapp.company_data(ticker)
+        return render_template("first.html", info=info, history=history)
+    return render_template("first.html")
+
+if __name__ != "__main__":
+    pass
+else:
+    flaskapp.run(debug=True)
